@@ -7,16 +7,17 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 import static com.scrumtrek.simplestore.PriceCodes.Childrens;
 import static com.scrumtrek.simplestore.PriceCodes.NewRelease;
 import static com.scrumtrek.simplestore.PriceCodes.Regular;
 import static org.hamcrest.CoreMatchers.containsString;
 
-@Ignore
 public class CustomerTest {
 
     @Test
+    @Ignore
     public void shouldHaveNameWhenConstructed(){
         Customer c = new Customer("test");
 
@@ -24,6 +25,7 @@ public class CustomerTest {
     }
 
     @Test
+    @Ignore
     public void test2(){
         Customer c = new Customer("test");
 
@@ -34,13 +36,26 @@ public class CustomerTest {
     public void addRental(){
         Customer c = new Customer("test");
 
-        Movie m = new Movie("title", Regular);
+        Movie m = mock(Movie.class);
+        when(m.getPriceCode())
+                .thenReturn(Regular);
+        when(m.getTitle())
+                .thenReturn("firstMovie");
+
         Rental r = new Rental(m, 1);
 
-        Movie m2 = new Movie("title1", Childrens);
+        Movie m2 = mock(Movie.class);
+        when(m2.getPriceCode())
+                .thenReturn(NewRelease);
+        when(m2.getTitle())
+                .thenReturn("secondMovie");
         Rental r2 = new Rental(m2, 1);
 
-        Movie m3 = new Movie("title2", NewRelease);
+        Movie m3 = mock(Movie.class);
+        when(m3.getPriceCode())
+                .thenReturn(Childrens);
+        when(m3.getTitle())
+                .thenReturn("firstMovie");
         Rental r3 = new Rental(m3, 1);
 
         c.addRental(r);
